@@ -3,33 +3,20 @@
 
 angular.module('LunchCheck', [])
 
-// .controller('NameCaculatorController', function ($scope) {
-//   $scope.name = "";
-//   $scope.totalValue = 0;
-
-//   $scope.displayNumeric = function () {
-//     var totalNameValue = calculatNumericForString($scope.name);
-//     $scope.totalValue = totalNameValue;
-//   };
-
-
-//   function calculatNumericForString(string) {
-//     var totalStringValue = 0;
-//     for (var i = 0; i < string.length; i++) {
-//       totalStringValue += string.charCodeAt(i);
-//     }
-
-//     return totalStringValue;
-//   }
-
-// });
-
   .controller ('LunchCheckController', LunchCheckController);
 
   LunchCheckController.$inject = ['$scope'];
   function LunchCheckController($scope) {
-    $scope.message = "qualquer coisa";
+    $scope.message = "Please insert comma separated dishes you usually eat for lunch";
 
+    //activated when button is clicked
+    $scope.checkTooMuch = function () {
+      console.log($scope.lunch);
+      var nDishes = countDishes($scope.lunch);
+      sayMessage(nDishes);      
+    }
+
+    //defines the message
     var sayMessage = function (nDishes) { 
       if (nDishes <= 0){
         $scope.message = "Please enter data first";
@@ -43,31 +30,10 @@ angular.module('LunchCheck', [])
         $scope.message = "Too much!"
       }
     }
-
-    $scope.checkTooMuch = function () {
-      console.log($scope.lunch);
-      var nDishes = countDishes($scope.lunch);
-      sayMessage(nDishes);
-      
-      console.log("Checked");
-      
-    }
-
-    // var countDishes = function (lunch) {
-
-    //   if (lunch != null){
-    //     var dishesArray = lunch.split(',');
-    //     return dishesArray.length;
-    //   }
-    //   else {
-    //     return 0;
-    //   }
-      
-    // }
   }
 
+  //counts number of dishes if not null
   var countDishes = function (lunch) {
-    console.log("lunch="+lunch);
     if (lunch != null && lunch != ""){
       var dishesArray = lunch.split(',');
       return dishesArray.length;
